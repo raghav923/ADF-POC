@@ -1,0 +1,40 @@
+{
+	"name": "AzureSqlTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "adfname",
+				"type": "varchar"
+			},
+			{
+				"name": "pipeline",
+				"type": "varchar"
+			},
+			{
+				"name": "runid",
+				"type": "varchar"
+			},
+			{
+				"name": "runtime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "runstatus",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "pipelinelog"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

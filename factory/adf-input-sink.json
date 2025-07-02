@@ -1,0 +1,9 @@
+{
+	"name": "adf-input-sink",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "5d555bca-437b-4d99-837c-3a65296c301f",
+		"tenantId": "e1031e9b-255f-4bbc-8647-9df99bc30c02"
+	}
+}
