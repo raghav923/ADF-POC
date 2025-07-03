@@ -248,7 +248,7 @@
 		],
 		"parameters": {
 			"DataFolders": {
-				"type": "array"
+				"type": "string"
 			}
 		},
 		"variables": {
