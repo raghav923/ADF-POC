@@ -152,6 +152,27 @@
 											"referenceName": "LS_logdetailsSP",
 											"type": "LinkedServiceReference"
 										}
+									},
+									{
+										"name": "update flag false",
+										"type": "SetVariable",
+										"dependsOn": [
+											{
+												"activity": "File Status Not Available",
+												"dependencyConditions": [
+													"Succeeded"
+												]
+											}
+										],
+										"policy": {
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"variableName": "flag",
+											"value": "false"
+										}
 									}
 								],
 								"ifTrueActivities": [
