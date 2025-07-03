@@ -40,7 +40,7 @@
 				}
 			},
 			{
-				"name": "Get Count_copy1",
+				"name": "Get Count",
 				"type": "Lookup",
 				"dependsOn": [
 					{
@@ -75,42 +75,11 @@
 				}
 			},
 			{
-				"name": "pl_get_count_copy1",
-				"type": "ExecutePipeline",
-				"dependsOn": [
-					{
-						"activity": "Get Diff_copy1",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"pipeline": {
-						"referenceName": "pl_get_latest_files",
-						"type": "PipelineReference"
-					},
-					"waitOnCompletion": true,
-					"parameters": {
-						"getcount": {
-							"value": "@activity('Get Count').output.firstRow.cnt",
-							"type": "Expression"
-						}
-					}
-				}
-			},
-			{
-				"name": "Get Diff_copy1",
+				"name": "Get Diff",
 				"type": "SetVariable",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
-						"activity": "Get Count_copy1",
+						"activity": "Get Count",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -127,6 +96,137 @@
 						"value": "@div(sub(ticks(utcnow()), ticks(activity('Get available trigger files').output.lastModified)), 600000000)",
 						"type": "Expression"
 					}
+				}
+			},
+			{
+				"name": "Log File Status in table",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "Get Diff",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@bool(or(greater(activity('Get Count').output.firstRow.cnt,1),greater(variables('diff'),5)))",
+						"type": "Expression"
+					},
+					"ifFalseActivities": [
+						{
+							"name": "File Status Not Available",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[dbo].[LogPipelineStatus]",
+								"storedProcedureParameters": {
+									"adfname": {
+										"value": {
+											"value": "@pipeline().DataFactory",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"pipeline": {
+										"value": {
+											"value": "@pipeline().Pipeline",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"runid": {
+										"value": {
+											"value": "@pipeline().RunId",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"runstatus": {
+										"value": "source files are not \navailable. Please wait until source files are available",
+										"type": "String"
+									},
+									"runtime": {
+										"value": {
+											"value": "@utcNow()",
+											"type": "Expression"
+										},
+										"type": "DateTime"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "LS_logdetailsSP",
+								"type": "LinkedServiceReference"
+							}
+						}
+					],
+					"ifTrueActivities": [
+						{
+							"name": "Log File Status",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[dbo].[LogPipelineStatus]",
+								"storedProcedureParameters": {
+									"adfname": {
+										"value": {
+											"value": "@pipeline().DataFactory",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"pipeline": {
+										"value": {
+											"value": "@pipeline().Pipeline",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"runid": {
+										"value": {
+											"value": "@pipeline().RunId",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"runstatus": {
+										"value": "source files are available \nfor processing",
+										"type": "String"
+									},
+									"runtime": {
+										"value": {
+											"value": "@utcNow()",
+											"type": "Expression"
+										},
+										"type": "DateTime"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "LS_logdetailsSP",
+								"type": "LinkedServiceReference"
+							}
+						}
+					]
 				}
 			}
 		],
