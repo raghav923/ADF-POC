@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"folderPath": "Dataland",
+				"folderPath": "Triggerland",
 				"container": "demo"
 			},
 			"columnDelimiter": ",",
