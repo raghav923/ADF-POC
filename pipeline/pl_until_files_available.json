@@ -8,6 +8,10 @@
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.DataFolders",
+						"type": "Expression"
+					},
 					"activities": [
 						{
 							"name": "Get available trigger files",
@@ -84,6 +88,8 @@
 						{
 							"name": "Get Diff",
 							"type": "SetVariable",
+							"state": "Inactive",
+							"onInactiveMarkAs": "Succeeded",
 							"dependsOn": [
 								{
 									"activity": "Get Count",
