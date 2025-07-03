@@ -215,7 +215,7 @@
 											"waitOnCompletion": true,
 											"parameters": {
 												"DataFolders": {
-													"value": "@item().name",
+													"value": "@activity('Get Metadata of files').output.childItems",
 													"type": "Expression"
 												}
 											}
