@@ -187,7 +187,7 @@
 										},
 										"userProperties": [],
 										"typeProperties": {
-											"variableName": "Diff",
+											"variableName": "diff1",
 											"value": {
 												"value": "@div(sub(ticks(utcnow()), ticks(activity('Get available trigger files').output.lastModified)), 600000000)",
 												"type": "Expression"
