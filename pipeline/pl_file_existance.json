@@ -62,6 +62,62 @@
 									"value": "@bool(equals(item().name,formatDateTime(utcNow(),'yyyyMMdd')))",
 									"type": "Expression"
 								},
+								"ifFalseActivities": [
+									{
+										"name": "Latest Date Folder is not available",
+										"type": "SqlServerStoredProcedure",
+										"dependsOn": [],
+										"policy": {
+											"timeout": "0.12:00:00",
+											"retry": 0,
+											"retryIntervalInSeconds": 30,
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"storedProcedureName": "[dbo].[LogPipelineStatus]",
+											"storedProcedureParameters": {
+												"adfname": {
+													"value": {
+														"value": "@pipeline().DataFactory",
+														"type": "Expression"
+													},
+													"type": "String"
+												},
+												"pipeline": {
+													"value": {
+														"value": "@pipeline().Pipeline",
+														"type": "Expression"
+													},
+													"type": "String"
+												},
+												"runid": {
+													"value": {
+														"value": "@pipeline().RunId",
+														"type": "Expression"
+													},
+													"type": "String"
+												},
+												"runstatus": {
+													"value": "Latest Date Folders are not available",
+													"type": "String"
+												},
+												"runtime": {
+													"value": {
+														"value": "@utcNow()",
+														"type": "Expression"
+													},
+													"type": "DateTime"
+												}
+											}
+										},
+										"linkedServiceName": {
+											"referenceName": "LS_logdetailsSP",
+											"type": "LinkedServiceReference"
+										}
+									}
+								],
 								"ifTrueActivities": [
 									{
 										"name": "Check Date Folder Status",
@@ -108,67 +164,6 @@
 									}
 								}
 							}
-						},
-						{
-							"name": "Latest Date Folder is not available",
-							"type": "SqlServerStoredProcedure",
-							"dependsOn": [
-								{
-									"activity": "Check Latest Date Blob",
-									"dependencyConditions": [
-										"Failed"
-									]
-								}
-							],
-							"policy": {
-								"timeout": "0.12:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"storedProcedureName": "[dbo].[LogPipelineStatus]",
-								"storedProcedureParameters": {
-									"adfname": {
-										"value": {
-											"value": "@pipeline().DataFactory",
-											"type": "Expression"
-										},
-										"type": "String"
-									},
-									"pipeline": {
-										"value": {
-											"value": "@pipeline().Pipeline",
-											"type": "Expression"
-										},
-										"type": "String"
-									},
-									"runid": {
-										"value": {
-											"value": "@pipeline().RunId",
-											"type": "Expression"
-										},
-										"type": "String"
-									},
-									"runstatus": {
-										"value": "Latest Date Folders are not available",
-										"type": "String"
-									},
-									"runtime": {
-										"value": {
-											"value": "@utcNow()",
-											"type": "Expression"
-										},
-										"type": "DateTime"
-									}
-								}
-							},
-							"linkedServiceName": {
-								"referenceName": "LS_logdetailsSP",
-								"type": "LinkedServiceReference"
-							}
 						}
 					]
 				}
@@ -202,6 +197,7 @@
 					],
 					"storeSettings": {
 						"type": "AzureBlobStorageReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
@@ -256,6 +252,7 @@
 								],
 								"storeSettings": {
 									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
 									"enablePartitionDiscovery": false
 								},
 								"formatSettings": {
@@ -328,6 +325,7 @@
 					],
 					"storeSettings": {
 						"type": "AzureBlobStorageReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
@@ -382,6 +380,7 @@
 								],
 								"storeSettings": {
 									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
 									"enablePartitionDiscovery": false
 								},
 								"formatSettings": {
