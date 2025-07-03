@@ -6,7 +6,13 @@
 				"name": "loop",
 				"type": "ForEach",
 				"dependsOn": [],
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.getdatefolders",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"parameters": {
