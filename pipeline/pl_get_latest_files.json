@@ -22,7 +22,23 @@
 								"expression": {
 									"value": "@bool(equals(item().name,formatDateTime(utcNow(),'yyyyMMdd')))",
 									"type": "Expression"
-								}
+								},
+								"ifTrueActivities": [
+									{
+										"name": "Set variable1",
+										"type": "SetVariable",
+										"dependsOn": [],
+										"policy": {
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"variableName": "Print",
+											"value": "Files Are Available"
+										}
+									}
+								]
 							}
 						}
 					]
@@ -32,6 +48,11 @@
 		"parameters": {
 			"getdatefolders": {
 				"type": "string"
+			}
+		},
+		"variables": {
+			"Print": {
+				"type": "String"
 			}
 		},
 		"annotations": []
