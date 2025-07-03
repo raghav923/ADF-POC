@@ -1,0 +1,9 @@
+{
+	"name": "pl_file_existance",
+	"properties": {
+		"folder": {
+			"name": "ADF POC"
+		},
+		"annotations": []
+	}
+}
