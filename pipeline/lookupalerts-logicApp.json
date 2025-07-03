@@ -127,6 +127,9 @@
 				"defaultValue": "raghavendraa92@outlook.com"
 			}
 		},
+		"folder": {
+			"name": "ADF POC"
+		},
 		"annotations": [],
 		"lastPublishTime": "2025-07-01T12:36:56Z"
 	},
