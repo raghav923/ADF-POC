@@ -9,7 +9,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@bool(or(greater(pipeline().parameters.getcount,1),greater(pipeline().parameters.getmin,5)))",
+						"value": "@bool(greater(pipeline().parameters.getcount,1))",
 						"type": "Expression"
 					}
 				}
@@ -31,6 +31,9 @@
 				"type": "String"
 			},
 			"Diff": {
+				"type": "Integer"
+			},
+			"diff": {
 				"type": "Integer"
 			}
 		},
