@@ -200,7 +200,7 @@
 										"typeProperties": {
 											"variableName": "Diff",
 											"value": {
-												"value": "@div(sub(ticks(utcnow()), ticks(activity('Get available trigger files').output.lastModified)), 600000000)\n",
+												"value": "@div(sub(ticks(utcnow()), ticks(activity('Get available trigger files').output.lastModified)), 600000000)",
 												"type": "Expression"
 											}
 										}
