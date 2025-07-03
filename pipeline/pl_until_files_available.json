@@ -256,6 +256,9 @@
 				"type": "Integer"
 			}
 		},
+		"folder": {
+			"name": "ADF POC"
+		},
 		"annotations": []
 	}
 }
