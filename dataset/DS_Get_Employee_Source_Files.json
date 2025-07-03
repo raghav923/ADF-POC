@@ -1,0 +1,40 @@
+{
+	"name": "DS_Get_Employee_Source_Files",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "parallel_2",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"DateFolders": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": {
+					"value": "@concat('Dataland/Department/',dataset().DateFolders)",
+					"type": "Expression"
+				},
+				"container": "demo"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "DepartmenName",
+				"type": "String"
+			},
+			{
+				"name": "Deptid",
+				"type": "String"
+			}
+		]
+	}
+}
