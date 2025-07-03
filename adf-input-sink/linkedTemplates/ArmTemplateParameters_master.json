@@ -1,0 +1,48 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adf-input-sink"
+		},
+		"AzureSqlDatabase1_connectionString": {
+			"value": ""
+		},
+		"LS_logdetailsSP_password": {
+			"value": ""
+		},
+		"Ls_LogicappAlert_connectionString": {
+			"value": ""
+		},
+		"parallel_2_connectionString": {
+			"value": ""
+		},
+		"sink_ls_accountKey": {
+			"value": ""
+		},
+		"soucre_ls_accountKey": {
+			"value": ""
+		},
+		"LS_logdetailsSP_properties_typeProperties_server": {
+			"value": "alert-server.database.windows.net"
+		},
+		"LS_logdetailsSP_properties_typeProperties_database": {
+			"value": "Demoatabase"
+		},
+		"LS_logdetailsSP_properties_typeProperties_userName": {
+			"value": "Dataadmin"
+		},
+		"sink_ls_properties_typeProperties_url": {
+			"value": "https://sinkstorage111.dfs.core.windows.net/"
+		},
+		"soucre_ls_properties_typeProperties_url": {
+			"value": "https://inputstorage111.dfs.core.windows.net/"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}

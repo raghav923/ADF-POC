@@ -1,0 +1,159 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "adf-input-sink"
+		},
+		"AzureSqlDatabase1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'"
+		},
+		"LS_logdetailsSP_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'LS_logdetailsSP'"
+		},
+		"Ls_LogicappAlert_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'Ls_LogicappAlert'"
+		},
+		"parallel_2_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'parallel_2'"
+		},
+		"sink_ls_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'sink_ls'"
+		},
+		"soucre_ls_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'soucre_ls'"
+		},
+		"LS_logdetailsSP_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "alert-server.database.windows.net"
+		},
+		"LS_logdetailsSP_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "Demoatabase"
+		},
+		"LS_logdetailsSP_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "Dataadmin"
+		},
+		"sink_ls_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://sinkstorage111.dfs.core.windows.net/"
+		},
+		"soucre_ls_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://inputstorage111.dfs.core.windows.net/"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "adf-input-sink_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"AzureSqlDatabase1_connectionString": {
+						"value": "[parameters('AzureSqlDatabase1_connectionString')]"
+					},
+					"LS_logdetailsSP_password": {
+						"value": "[parameters('LS_logdetailsSP_password')]"
+					},
+					"Ls_LogicappAlert_connectionString": {
+						"value": "[parameters('Ls_LogicappAlert_connectionString')]"
+					},
+					"parallel_2_connectionString": {
+						"value": "[parameters('parallel_2_connectionString')]"
+					},
+					"sink_ls_accountKey": {
+						"value": "[parameters('sink_ls_accountKey')]"
+					},
+					"soucre_ls_accountKey": {
+						"value": "[parameters('soucre_ls_accountKey')]"
+					},
+					"LS_logdetailsSP_properties_typeProperties_server": {
+						"value": "[parameters('LS_logdetailsSP_properties_typeProperties_server')]"
+					},
+					"LS_logdetailsSP_properties_typeProperties_database": {
+						"value": "[parameters('LS_logdetailsSP_properties_typeProperties_database')]"
+					},
+					"LS_logdetailsSP_properties_typeProperties_userName": {
+						"value": "[parameters('LS_logdetailsSP_properties_typeProperties_userName')]"
+					},
+					"sink_ls_properties_typeProperties_url": {
+						"value": "[parameters('sink_ls_properties_typeProperties_url')]"
+					},
+					"soucre_ls_properties_typeProperties_url": {
+						"value": "[parameters('soucre_ls_properties_typeProperties_url')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "adf-input-sink_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'adf-input-sink_ArmTemplate_0')]"
+			]
+		},
+		{
+			"name": "adf-input-sink_ArmTemplate_2",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'adf-input-sink_ArmTemplate_1')]"
+			]
+		}
+	]
+}
