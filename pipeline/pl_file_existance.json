@@ -205,13 +205,7 @@
 			"Print": {
 				"type": "String"
 			},
-			"Diff": {
-				"type": "Integer"
-			},
 			"diff1": {
-				"type": "Integer"
-			},
-			"diff": {
 				"type": "Integer"
 			}
 		},
