@@ -180,6 +180,8 @@
 			{
 				"name": "Get Metadata of Department dataland",
 				"type": "GetMetadata",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "Loop",
@@ -216,6 +218,8 @@
 			{
 				"name": "Loop Departments",
 				"type": "ForEach",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "Get Metadata of Department dataland",
