@@ -156,8 +156,6 @@
 									{
 										"name": "pl_get_count",
 										"type": "ExecutePipeline",
-										"state": "Inactive",
-										"onInactiveMarkAs": "Succeeded",
 										"dependsOn": [
 											{
 												"activity": "Get Diff",
@@ -179,6 +177,10 @@
 											"parameters": {
 												"getcount": {
 													"value": "@activity('Get Count').output.firstRow.cnt",
+													"type": "Expression"
+												},
+												"getmin": {
+													"value": "@variables('Diff')",
 													"type": "Expression"
 												}
 											}
@@ -220,6 +222,9 @@
 				"type": "String"
 			},
 			"Diff": {
+				"type": "Integer"
+			},
+			"diff1": {
 				"type": "Integer"
 			}
 		},
