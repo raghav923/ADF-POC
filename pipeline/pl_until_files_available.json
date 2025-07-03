@@ -3,19 +3,98 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Loop",
-				"type": "ForEach",
+				"name": "Get available trigger files",
+				"type": "GetMetadata",
 				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
 				"userProperties": [],
 				"typeProperties": {
-					"items": {
-						"value": "@pipeline().parameters.DataFolders",
+					"dataset": {
+						"referenceName": "DS_Get_Date_Folders",
+						"type": "DatasetReference",
+						"parameters": {
+							"BlobName": {
+								"value": "@item().name",
+								"type": "Expression"
+							}
+						}
+					},
+					"fieldList": [
+						"childItems",
+						"lastModified"
+					],
+					"storeSettings": {
+						"type": "AzureBlobStorageReadSettings",
+						"recursive": true,
+						"enablePartitionDiscovery": false
+					},
+					"formatSettings": {
+						"type": "DelimitedTextReadSettings"
+					}
+				}
+			},
+			{
+				"name": "Get Count",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "Get available trigger files",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "Declare @json1 nvarchar(max)\nSet @json1 = '@{activity('Get available trigger files').output.childItems}'\nselect count(*) as cnt from openjson(@json1)",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference"
+					}
+				}
+			},
+			{
+				"name": "Log File Entry Check",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "Get Count",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@bool(greater(activity('Get Count').output.firstRow.cnt,1))",
 						"type": "Expression"
 					},
-					"activities": [
+					"ifFalseActivities": [
 						{
-							"name": "Get available trigger files",
-							"type": "GetMetadata",
+							"name": "File Status Not Available",
+							"type": "SqlServerStoredProcedure",
 							"dependsOn": [],
 							"policy": {
 								"timeout": "0.12:00:00",
@@ -26,41 +105,53 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"dataset": {
-									"referenceName": "DS_Get_Date_Folders",
-									"type": "DatasetReference",
-									"parameters": {
-										"BlobName": {
-											"value": "@item().name",
+								"storedProcedureName": "[dbo].[LogPipelineStatus]",
+								"storedProcedureParameters": {
+									"adfname": {
+										"value": {
+											"value": "@pipeline().DataFactory",
 											"type": "Expression"
-										}
+										},
+										"type": "String"
+									},
+									"pipeline": {
+										"value": {
+											"value": "@pipeline().Pipeline",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"runid": {
+										"value": {
+											"value": "@pipeline().RunId",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"runstatus": {
+										"value": "source files are not \navailable. Please wait until source files are available",
+										"type": "String"
+									},
+									"runtime": {
+										"value": {
+											"value": "@utcNow()",
+											"type": "Expression"
+										},
+										"type": "DateTime"
 									}
-								},
-								"fieldList": [
-									"childItems",
-									"lastModified"
-								],
-								"storeSettings": {
-									"type": "AzureBlobStorageReadSettings",
-									"recursive": true,
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
 								}
+							},
+							"linkedServiceName": {
+								"referenceName": "LS_logdetailsSP",
+								"type": "LinkedServiceReference"
 							}
-						},
+						}
+					],
+					"ifTrueActivities": [
 						{
-							"name": "Get Count",
-							"type": "Lookup",
-							"dependsOn": [
-								{
-									"activity": "Get available trigger files",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
+							"name": "Log File Status",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [],
 							"policy": {
 								"timeout": "0.12:00:00",
 								"retry": 0,
@@ -70,150 +161,45 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"source": {
-									"type": "AzureSqlSource",
-									"sqlReaderQuery": {
-										"value": "Declare @json1 nvarchar(max)\nSet @json1 = '@{activity('Get available trigger files').output.childItems}'\nselect count(*) as cnt from openjson(@json1)",
-										"type": "Expression"
+								"storedProcedureName": "[dbo].[LogPipelineStatus]",
+								"storedProcedureParameters": {
+									"adfname": {
+										"value": {
+											"value": "@pipeline().DataFactory",
+											"type": "Expression"
+										},
+										"type": "String"
 									},
-									"queryTimeout": "02:00:00",
-									"partitionOption": "None"
-								},
-								"dataset": {
-									"referenceName": "AzureSqlTable1",
-									"type": "DatasetReference"
-								}
-							}
-						},
-						{
-							"name": "Log File Entry Check",
-							"type": "IfCondition",
-							"dependsOn": [
-								{
-									"activity": "Get Count",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
-							"userProperties": [],
-							"typeProperties": {
-								"expression": {
-									"value": "@bool(greater(activity('Get Count').output.firstRow.cnt,1))",
-									"type": "Expression"
-								},
-								"ifFalseActivities": [
-									{
-										"name": "File Status Not Available",
-										"type": "SqlServerStoredProcedure",
-										"dependsOn": [],
-										"policy": {
-											"timeout": "0.12:00:00",
-											"retry": 0,
-											"retryIntervalInSeconds": 30,
-											"secureOutput": false,
-											"secureInput": false
+									"pipeline": {
+										"value": {
+											"value": "@pipeline().Pipeline",
+											"type": "Expression"
 										},
-										"userProperties": [],
-										"typeProperties": {
-											"storedProcedureName": "[dbo].[LogPipelineStatus]",
-											"storedProcedureParameters": {
-												"adfname": {
-													"value": {
-														"value": "@pipeline().DataFactory",
-														"type": "Expression"
-													},
-													"type": "String"
-												},
-												"pipeline": {
-													"value": {
-														"value": "@pipeline().Pipeline",
-														"type": "Expression"
-													},
-													"type": "String"
-												},
-												"runid": {
-													"value": {
-														"value": "@pipeline().RunId",
-														"type": "Expression"
-													},
-													"type": "String"
-												},
-												"runstatus": {
-													"value": "source files are not \navailable. Please wait until source files are available",
-													"type": "String"
-												},
-												"runtime": {
-													"value": {
-														"value": "@utcNow()",
-														"type": "Expression"
-													},
-													"type": "DateTime"
-												}
-											}
+										"type": "String"
+									},
+									"runid": {
+										"value": {
+											"value": "@pipeline().RunId",
+											"type": "Expression"
 										},
-										"linkedServiceName": {
-											"referenceName": "LS_logdetailsSP",
-											"type": "LinkedServiceReference"
-										}
+										"type": "String"
+									},
+									"runstatus": {
+										"value": "source files are available \nfor processing",
+										"type": "String"
+									},
+									"runtime": {
+										"value": {
+											"value": "@utcNow()",
+											"type": "Expression"
+										},
+										"type": "DateTime"
 									}
-								],
-								"ifTrueActivities": [
-									{
-										"name": "Log File Status",
-										"type": "SqlServerStoredProcedure",
-										"dependsOn": [],
-										"policy": {
-											"timeout": "0.12:00:00",
-											"retry": 0,
-											"retryIntervalInSeconds": 30,
-											"secureOutput": false,
-											"secureInput": false
-										},
-										"userProperties": [],
-										"typeProperties": {
-											"storedProcedureName": "[dbo].[LogPipelineStatus]",
-											"storedProcedureParameters": {
-												"adfname": {
-													"value": {
-														"value": "@pipeline().DataFactory",
-														"type": "Expression"
-													},
-													"type": "String"
-												},
-												"pipeline": {
-													"value": {
-														"value": "@pipeline().Pipeline",
-														"type": "Expression"
-													},
-													"type": "String"
-												},
-												"runid": {
-													"value": {
-														"value": "@pipeline().RunId",
-														"type": "Expression"
-													},
-													"type": "String"
-												},
-												"runstatus": {
-													"value": "source files are available \nfor processing",
-													"type": "String"
-												},
-												"runtime": {
-													"value": {
-														"value": "@utcNow()",
-														"type": "Expression"
-													},
-													"type": "DateTime"
-												}
-											}
-										},
-										"linkedServiceName": {
-											"referenceName": "LS_logdetailsSP",
-											"type": "LinkedServiceReference"
-										}
-									}
-								]
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "LS_logdetailsSP",
+								"type": "LinkedServiceReference"
 							}
 						}
 					]
