@@ -160,10 +160,6 @@
 												"getcount": {
 													"value": "@activity('Get Count').output.firstRow.cnt",
 													"type": "Expression"
-												},
-												"getmin": {
-													"value": "@variables('Diff')",
-													"type": "Expression"
 												}
 											}
 										}
