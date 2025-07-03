@@ -68,7 +68,14 @@
 										"type": "GetMetadata",
 										"state": "Inactive",
 										"onInactiveMarkAs": "Succeeded",
-										"dependsOn": [],
+										"dependsOn": [
+											{
+												"activity": "Until files available",
+												"dependencyConditions": [
+													"Succeeded"
+												]
+											}
+										],
 										"policy": {
 											"timeout": "0.12:00:00",
 											"retry": 0,
@@ -197,7 +204,7 @@
 										}
 									},
 									{
-										"name": "Execute Pipeline1",
+										"name": "Until files available",
 										"type": "ExecutePipeline",
 										"dependsOn": [],
 										"policy": {
