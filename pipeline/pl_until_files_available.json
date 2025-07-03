@@ -86,10 +86,8 @@
 							}
 						},
 						{
-							"name": "Get Diff",
-							"type": "SetVariable",
-							"state": "Inactive",
-							"onInactiveMarkAs": "Succeeded",
+							"name": "Log File Entry Check",
+							"type": "IfCondition",
 							"dependsOn": [
 								{
 									"activity": "Get Count",
@@ -98,34 +96,10 @@
 									]
 								}
 							],
-							"policy": {
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "diff",
-								"value": {
-									"value": "@div(sub(ticks(utcnow()), ticks(activity('Get available trigger files').output.lastModified)), 600000000)",
-									"type": "Expression"
-								}
-							}
-						},
-						{
-							"name": "Log File Entry Check",
-							"type": "IfCondition",
-							"dependsOn": [
-								{
-									"activity": "Get Diff",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
 							"userProperties": [],
 							"typeProperties": {
 								"expression": {
-									"value": "@bool(or(greater(activity('Get Count').output.firstRow.cnt,1),greater(variables('diff'),5)))",
+									"value": "@bool(greater(activity('Get Count').output.firstRow.cnt,1))",
 									"type": "Expression"
 								},
 								"ifFalseActivities": [
