@@ -141,12 +141,6 @@
 		"variables": {
 			"Print": {
 				"type": "String"
-			},
-			"Diff": {
-				"type": "Integer"
-			},
-			"diff": {
-				"type": "Integer"
 			}
 		},
 		"folder": {
