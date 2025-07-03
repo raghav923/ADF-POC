@@ -110,10 +110,6 @@
 									"getcount": {
 										"value": "@activity('Get Count').output.firstRow.cnt",
 										"type": "Expression"
-									},
-									"getmin": {
-										"value": "@variables('Diff')",
-										"type": "Expression"
 									}
 								}
 							}
@@ -121,6 +117,8 @@
 						{
 							"name": "Get Diff",
 							"type": "SetVariable",
+							"state": "Inactive",
+							"onInactiveMarkAs": "Succeeded",
 							"dependsOn": [
 								{
 									"activity": "Get Count",
