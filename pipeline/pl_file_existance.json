@@ -64,25 +64,17 @@
 								},
 								"ifTrueActivities": [
 									{
-										"name": "Until files available",
-										"type": "ExecutePipeline",
+										"name": "Check Date Folder Status",
+										"type": "SetVariable",
 										"dependsOn": [],
 										"policy": {
+											"secureOutput": false,
 											"secureInput": false
 										},
 										"userProperties": [],
 										"typeProperties": {
-											"pipeline": {
-												"referenceName": "pl_until_files_available",
-												"type": "PipelineReference"
-											},
-											"waitOnCompletion": true,
-											"parameters": {
-												"DataFolders": {
-													"value": "@activity('Get Metadata of files').output.childItems",
-													"type": "Expression"
-												}
-											}
+											"variableName": "Check Date",
+											"value": "Satisfied"
 										}
 									}
 								]
@@ -127,6 +119,9 @@
 			},
 			"diff1": {
 				"type": "Integer"
+			},
+			"Check Date": {
+				"type": "String"
 			}
 		},
 		"folder": {
