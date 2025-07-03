@@ -133,9 +133,6 @@
 			},
 			"LastModified": {
 				"type": "string"
-			},
-			"getmin": {
-				"type": "int"
 			}
 		},
 		"variables": {
