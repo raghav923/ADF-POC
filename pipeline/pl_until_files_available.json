@@ -231,7 +231,7 @@
 										}
 									},
 									{
-										"name": "update flage True",
+										"name": "update flag True",
 										"type": "SetVariable",
 										"dependsOn": [
 											{
