@@ -11,7 +11,21 @@
 					"items": {
 						"value": "@pipeline().parameters.getdatefolders",
 						"type": "Expression"
-					}
+					},
+					"activities": [
+						{
+							"name": "If Condition1",
+							"type": "IfCondition",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"expression": {
+									"value": "@bool(equals(item().name,formatDateTime(utcNow(),'yyyyMMdd')))",
+									"type": "Expression"
+								}
+							}
+						}
+					]
 				}
 			}
 		],
