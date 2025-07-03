@@ -14,7 +14,7 @@
 					},
 					"ifFalseActivities": [
 						{
-							"name": "Log File Status_copy1",
+							"name": "File Status Not Available",
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [],
 							"policy": {
