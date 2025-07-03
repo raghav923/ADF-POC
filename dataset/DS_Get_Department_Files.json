@@ -1,0 +1,32 @@
+{
+	"name": "DS_Get_Department_Files",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "parallel_2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": "Dataland/Department",
+				"container": "demo"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "DepartmenName",
+				"type": "String"
+			},
+			{
+				"name": "Deptid",
+				"type": "String"
+			}
+		]
+	}
+}
