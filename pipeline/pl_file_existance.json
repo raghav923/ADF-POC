@@ -53,7 +53,7 @@
 					"isSequential": false,
 					"activities": [
 						{
-							"name": "Check Date Condition",
+							"name": "Check Latest Date Blob",
 							"type": "IfCondition",
 							"dependsOn": [],
 							"userProperties": [],
