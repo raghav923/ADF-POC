@@ -66,8 +66,6 @@
 									{
 										"name": "Get available trigger files",
 										"type": "GetMetadata",
-										"state": "Inactive",
-										"onInactiveMarkAs": "Succeeded",
 										"dependsOn": [
 											{
 												"activity": "Until files available",
@@ -112,8 +110,6 @@
 									{
 										"name": "Get Count",
 										"type": "Lookup",
-										"state": "Inactive",
-										"onInactiveMarkAs": "Succeeded",
 										"dependsOn": [
 											{
 												"activity": "Get available trigger files",
@@ -149,8 +145,6 @@
 									{
 										"name": "pl_get_count",
 										"type": "ExecutePipeline",
-										"state": "Inactive",
-										"onInactiveMarkAs": "Succeeded",
 										"dependsOn": [
 											{
 												"activity": "Get Diff",
@@ -180,8 +174,6 @@
 									{
 										"name": "Get Diff",
 										"type": "SetVariable",
-										"state": "Inactive",
-										"onInactiveMarkAs": "Succeeded",
 										"dependsOn": [
 											{
 												"activity": "Get Count",
@@ -206,6 +198,8 @@
 									{
 										"name": "Until files available",
 										"type": "ExecutePipeline",
+										"state": "Inactive",
+										"onInactiveMarkAs": "Succeeded",
 										"dependsOn": [],
 										"policy": {
 											"secureInput": false
