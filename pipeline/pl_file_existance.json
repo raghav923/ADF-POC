@@ -216,7 +216,13 @@
 												"referenceName": "pl_until_files_available",
 												"type": "PipelineReference"
 											},
-											"waitOnCompletion": true
+											"waitOnCompletion": true,
+											"parameters": {
+												"DataFolders": {
+													"value": "@activity('Get Metadata of files').output.childItems",
+													"type": "Expression"
+												}
+											}
 										}
 									}
 								]
