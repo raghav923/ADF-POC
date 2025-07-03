@@ -18,6 +18,10 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@dataset().Filename",
+					"type": "Expression"
+				},
 				"folderPath": {
 					"value": "@concat('Dataland/Employee/',dataset().Departmentfolder)",
 					"type": "Expression"
