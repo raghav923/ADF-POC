@@ -55,6 +55,9 @@
 				"type": "String"
 			}
 		},
+		"folder": {
+			"name": "ADF POC"
+		},
 		"annotations": []
 	}
 }
