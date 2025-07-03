@@ -1,6 +1,19 @@
 {
 	"name": "pl_get_latest_files",
 	"properties": {
+		"activities": [
+			{
+				"name": "loop",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": []
+			}
+		],
+		"parameters": {
+			"getdatefolders": {
+				"type": "string"
+			}
+		},
 		"annotations": []
 	}
 }
