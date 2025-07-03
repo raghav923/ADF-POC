@@ -20,7 +20,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"BlobName": {
-								"value": "@item().name",
+								"value": "@pipeline().parameters.DataFolders",
 								"type": "Expression"
 							}
 						}
