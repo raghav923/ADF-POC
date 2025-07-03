@@ -1,9 +1,0 @@
-{
-	"name": "pl_get_date_folders",
-	"properties": {
-		"folder": {
-			"name": "ADF POC"
-		},
-		"annotations": []
-	}
-}
