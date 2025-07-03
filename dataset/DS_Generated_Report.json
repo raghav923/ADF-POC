@@ -1,0 +1,27 @@
+{
+	"name": "DS_Generated_Report",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "parallel_2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@concat('Departmentcount.csv')",
+					"type": "Expression"
+				},
+				"folderPath": "Dataland/GeneratedReport",
+				"container": "demo"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
