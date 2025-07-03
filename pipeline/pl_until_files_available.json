@@ -31,7 +31,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"BlobName": {
-											"value": "@item().name",
+											"value": "@pipeline().parameters.DataFolders",
 											"type": "Expression"
 										}
 									}
@@ -135,7 +135,7 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"variableName": "Diff",
+								"variableName": "diff",
 								"value": {
 									"value": "@div(sub(ticks(utcnow()), ticks(activity('Get available trigger files').output.lastModified)), 600000000)",
 									"type": "Expression"
@@ -149,6 +149,11 @@
 		"parameters": {
 			"DataFolders": {
 				"type": "string"
+			}
+		},
+		"variables": {
+			"diff": {
+				"type": "Integer"
 			}
 		},
 		"annotations": []
