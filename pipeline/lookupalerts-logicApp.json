@@ -24,7 +24,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "select pipeline, count(*) from [dbo].[pipelinelog]\nwhere runstatus='Fail' \ngroup by pipeline\nhaving count(*)>1",
+						"sqlReaderQuery": "/*select pipeline, count(*) from [dbo].[pipelinelog]\nwhere runstatus='Fail' \ngroup by pipeline\nhaving count(*)>1\n*/\n\nInsert into dbo.Employee\nvalues('Lakshman','108',10000,6)",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -106,7 +106,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "Insert into dbo.Employee\r\nvalues('Lakshman','108',10000,6)",
+						"sqlReaderQuery": "Insert into dbo.Employee\r\nvalues('Lakshman','108',10000,6)\r\n\r\nselect 1",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
