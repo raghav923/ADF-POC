@@ -385,6 +385,39 @@
 									"type": "DelimitedTextReadSettings"
 								}
 							}
+						},
+						{
+							"name": "Load Employee",
+							"type": "ExecutePipeline",
+							"dependsOn": [
+								{
+									"activity": "Get Employee source files",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_load_employee_data",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"departmentfilename": {
+										"value": "@activity('Get Employee source files').output.childItems",
+										"type": "Expression"
+									},
+									"DateFolder": {
+										"value": "@item().name",
+										"type": "Expression"
+									}
+								}
+							}
 						}
 					]
 				}
