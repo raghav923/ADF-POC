@@ -103,7 +103,8 @@
 												}
 											},
 											"fieldList": [
-												"childItems"
+												"childItems",
+												"lastModified"
 											],
 											"storeSettings": {
 												"type": "AzureBlobStorageReadSettings",
@@ -152,9 +153,11 @@
 									{
 										"name": "pl_get_count",
 										"type": "ExecutePipeline",
+										"state": "Inactive",
+										"onInactiveMarkAs": "Succeeded",
 										"dependsOn": [
 											{
-												"activity": "Get Count",
+												"activity": "Get Diff",
 												"dependencyConditions": [
 													"Succeeded"
 												]
@@ -177,6 +180,30 @@
 												}
 											}
 										}
+									},
+									{
+										"name": "Get Diff",
+										"type": "SetVariable",
+										"dependsOn": [
+											{
+												"activity": "Get Count",
+												"dependencyConditions": [
+													"Succeeded"
+												]
+											}
+										],
+										"policy": {
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"variableName": "Diff",
+											"value": {
+												"value": "@div(sub(ticks(utcnow()), ticks(activity('Get available trigger files').output.lastModified)), 600000000)\n",
+												"type": "Expression"
+											}
+										}
 									}
 								]
 							}
@@ -188,6 +215,9 @@
 		"variables": {
 			"Print": {
 				"type": "String"
+			},
+			"Diff": {
+				"type": "Integer"
 			}
 		},
 		"folder": {

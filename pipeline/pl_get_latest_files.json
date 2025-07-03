@@ -9,7 +9,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@greater(pipeline().parameters.getcount,1)",
+						"value": "@bool(greater(pipeline().parameters.getcount,1))",
 						"type": "Expression"
 					}
 				}
@@ -17,12 +17,18 @@
 		],
 		"parameters": {
 			"getcount": {
+				"type": "int"
+			},
+			"LastModified": {
 				"type": "string"
 			}
 		},
 		"variables": {
 			"Print": {
 				"type": "String"
+			},
+			"Diff": {
+				"type": "Integer"
 			}
 		},
 		"folder": {
