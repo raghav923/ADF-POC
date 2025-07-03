@@ -132,7 +132,7 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "DS_Get_Department_Files",
+									"referenceName": "DS_GET_Employee_Files",
 									"type": "DatasetReference",
 									"parameters": {
 										"Departmentfolder": {
@@ -148,7 +148,7 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "DS_Department_Archieve",
+									"referenceName": "DS_Employee_Archieve",
 									"type": "DatasetReference"
 								}
 							]
