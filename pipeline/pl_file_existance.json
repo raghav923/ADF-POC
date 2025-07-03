@@ -171,6 +171,8 @@
 									{
 										"name": "Get Diff",
 										"type": "SetVariable",
+										"state": "Inactive",
+										"onInactiveMarkAs": "Succeeded",
 										"dependsOn": [
 											{
 												"activity": "Get Count",
