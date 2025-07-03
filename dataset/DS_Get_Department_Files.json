@@ -5,6 +5,11 @@
 			"referenceName": "parallel_2",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"Departmentfolder": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
