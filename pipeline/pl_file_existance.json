@@ -83,6 +83,35 @@
 									"type": "DelimitedTextReadSettings"
 								}
 							}
+						},
+						{
+							"name": "pl_get_latestfiles",
+							"type": "ExecutePipeline",
+							"dependsOn": [
+								{
+									"activity": "Get Metdata Date Folders",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_get_latest_files",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"getdatefolders": {
+										"value": "@activity('Get Metdata Date Folders').output.childItems",
+										"type": "Expression"
+									}
+								}
+							}
 						}
 					]
 				}
