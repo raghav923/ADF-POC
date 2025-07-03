@@ -48,6 +48,7 @@
 						"value": "@activity('Get Metadata of files').output.childItems",
 						"type": "Expression"
 					},
+					"isSequential": false,
 					"activities": [
 						{
 							"name": "Get Metdata Date Folders",
@@ -87,6 +88,8 @@
 						{
 							"name": "pl_get_latestfiles",
 							"type": "ExecutePipeline",
+							"state": "Inactive",
+							"onInactiveMarkAs": "Succeeded",
 							"dependsOn": [
 								{
 									"activity": "Get Metdata Date Folders",
@@ -117,6 +120,11 @@
 				}
 			}
 		],
+		"variables": {
+			"Print": {
+				"type": "String"
+			}
+		},
 		"folder": {
 			"name": "ADF POC"
 		},
