@@ -9,7 +9,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Load data to department table').output",
+						"value": "@pipeline().parameters.departmentfilename",
 						"type": "Expression"
 					},
 					"activities": [
@@ -42,7 +42,17 @@
 							"inputs": [
 								{
 									"referenceName": "DS_Get_Department_Files",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"Departmentfolder": {
+											"value": "@pipeline().parameters.DateFolder",
+											"type": "Expression"
+										},
+										"Filename": {
+											"value": "@item().name",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						}
