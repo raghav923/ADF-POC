@@ -5,8 +5,6 @@
 			{
 				"name": "Get Metadata of files",
 				"type": "GetMetadata",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -38,8 +36,6 @@
 			{
 				"name": "Loop",
 				"type": "ForEach",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "Get Metadata of files",
@@ -180,8 +176,6 @@
 			{
 				"name": "Get Metadata of Department dataland",
 				"type": "GetMetadata",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "Loop",
@@ -218,8 +212,6 @@
 			{
 				"name": "Loop Departments",
 				"type": "ForEach",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "Get Metadata of Department dataland",
