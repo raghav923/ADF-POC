@@ -87,6 +87,35 @@
 									}
 								]
 							}
+						},
+						{
+							"name": "Until files available_copy1",
+							"type": "ExecutePipeline",
+							"dependsOn": [
+								{
+									"activity": "Check Latest Date Blob",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_until_files_available",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"DataFolders": {
+										"value": "@item().name",
+										"type": "Expression"
+									}
+								}
+							}
 						}
 					]
 				}
