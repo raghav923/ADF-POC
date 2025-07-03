@@ -39,7 +39,7 @@
 								},
 								"sink": {
 									"type": "AzureSqlSink",
-									"preCopyScript": "Drop table dbo.Employee",
+									"preCopyScript": "Truncate  table dbo.Employee",
 									"writeBehavior": "insert",
 									"sqlWriterUseTableLock": false,
 									"tableOption": "autoCreate",
