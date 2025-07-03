@@ -9,7 +9,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@bool(equals(item().name,formatDateTime(utcNow(),'yyyyMMdd')))",
+						"value": "@bool(equals(pipeline().parameters.DataFolders,formatDateTime(utcNow(),'yyyyMMdd')))",
 						"type": "Expression"
 					},
 					"ifTrueActivities": [
