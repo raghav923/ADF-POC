@@ -16,7 +16,7 @@
 			"location": {
 				"type": "AzureBlobStorageLocation",
 				"folderPath": {
-					"value": "@concat('Dataland/',dataset().BlobName)",
+					"value": "@concat('Triggerland/',dataset().BlobName)",
 					"type": "Expression"
 				},
 				"container": "demo"
