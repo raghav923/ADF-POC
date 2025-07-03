@@ -9,7 +9,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@bool(greater(pipeline().parameters.getcount,1))",
+						"value": "@bool(or(greater(pipeline().parameters.getcount,1),greater(pipeline().parameters.getmin,5)))",
 						"type": "Expression"
 					}
 				}
@@ -21,6 +21,9 @@
 			},
 			"LastModified": {
 				"type": "string"
+			},
+			"getmin": {
+				"type": "int"
 			}
 		},
 		"variables": {
