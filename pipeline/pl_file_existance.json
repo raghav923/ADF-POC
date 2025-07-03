@@ -354,6 +354,10 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
+					"items": {
+						"value": "@activity('Get Metadata of Employee').output.childItems",
+						"type": "Expression"
+					},
 					"activities": [
 						{
 							"name": "Get Employee source files",
