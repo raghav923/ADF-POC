@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "If Condition1",
+				"name": "Log File Status in table",
 				"type": "IfCondition",
 				"dependsOn": [],
 				"userProperties": [],
