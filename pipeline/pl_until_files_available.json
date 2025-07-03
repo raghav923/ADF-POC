@@ -112,7 +112,7 @@
 							}
 						},
 						{
-							"name": "Log File Status in table",
+							"name": "Log File Entry Check",
 							"type": "IfCondition",
 							"dependsOn": [
 								{
