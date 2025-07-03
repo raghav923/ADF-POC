@@ -15,7 +15,10 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"folderPath": "Dataland/Department",
+				"folderPath": {
+					"value": "@concat('Dataland/Department/',dataset().Departmentfolder)",
+					"type": "Expression"
+				},
 				"container": "demo"
 			},
 			"columnDelimiter": ",",
