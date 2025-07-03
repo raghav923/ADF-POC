@@ -72,7 +72,7 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "DS_Department",
+									"referenceName": "DS_Employee_SQL",
 									"type": "DatasetReference"
 								}
 							]
