@@ -1,0 +1,27 @@
+{
+	"name": "DS_Department_Archieve",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "parallel_2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@concat('Department_',formatDateTime(utcNow(),'yyyyMMdd'),'.csv')",
+					"type": "Expression"
+				},
+				"folderPath": "Dataland/Department/Archieve",
+				"container": "demo"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
