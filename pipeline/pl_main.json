@@ -25,7 +25,8 @@
 					{
 						"activity": "pl_main",
 						"dependencyConditions": [
-							"Succeeded"
+							"Failed",
+							"Skipped"
 						]
 					}
 				],
@@ -45,8 +46,7 @@
 					{
 						"activity": "pl_main",
 						"dependencyConditions": [
-							"Failed",
-							"Skipped"
+							"Succeeded"
 						]
 					}
 				],
