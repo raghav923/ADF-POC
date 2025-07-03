@@ -14,7 +14,7 @@
 					"value": "@concat('Department_',formatDateTime(utcNow(),'yyyyMMdd'),'.csv')",
 					"type": "Expression"
 				},
-				"folderPath": "Dataland/Department/Archieve",
+				"folderPath": "Dataland/Archieve",
 				"container": "demo"
 			},
 			"columnDelimiter": ",",
