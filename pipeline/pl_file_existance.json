@@ -65,13 +65,7 @@
 									"referenceName": "pl_get_latest_files",
 									"type": "PipelineReference"
 								},
-								"waitOnCompletion": true,
-								"parameters": {
-									"getdatefolders": {
-										"value": "@activity('Get Metdata Date Folders').output.childItems",
-										"type": "Expression"
-									}
-								}
+								"waitOnCompletion": true
 							}
 						},
 						{
@@ -152,6 +146,35 @@
 											"dataset": {
 												"referenceName": "AzureSqlTable1",
 												"type": "DatasetReference"
+											}
+										}
+									},
+									{
+										"name": "pl_get_count",
+										"type": "ExecutePipeline",
+										"dependsOn": [
+											{
+												"activity": "Get Count",
+												"dependencyConditions": [
+													"Succeeded"
+												]
+											}
+										],
+										"policy": {
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"pipeline": {
+												"referenceName": "pl_get_latest_files",
+												"type": "PipelineReference"
+											},
+											"waitOnCompletion": true,
+											"parameters": {
+												"getcount": {
+													"value": "@activity('Get Count').output.firstRow.cnt",
+													"type": "Expression"
+												}
 											}
 										}
 									}
