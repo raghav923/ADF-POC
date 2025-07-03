@@ -8,6 +8,10 @@
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
+					"expression": {
+						"value": "@bool(variables('flag'))",
+						"type": "Expression"
+					},
 					"activities": [
 						{
 							"name": "Get available trigger files",
