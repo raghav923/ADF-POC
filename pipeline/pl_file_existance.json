@@ -230,6 +230,7 @@
 						"value": "@activity('Get Metadata of Department dataland').output.childItems",
 						"type": "Expression"
 					},
+					"isSequential": false,
 					"activities": [
 						{
 							"name": "Get Metadata of Department File",
@@ -269,8 +270,6 @@
 						{
 							"name": "Load Department data",
 							"type": "ExecutePipeline",
-							"state": "Inactive",
-							"onInactiveMarkAs": "Succeeded",
 							"dependsOn": [
 								{
 									"activity": "Get Metadata of Department File",
