@@ -8,6 +8,9 @@
 		"parameters": {
 			"Departmentfolder": {
 				"type": "string"
+			},
+			"Filename": {
+				"type": "string"
 			}
 		},
 		"annotations": [],
