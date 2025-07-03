@@ -3,9 +3,16 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Lookup1",
+				"name": "Update",
 				"type": "Lookup",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Insert",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -28,11 +35,11 @@
 				}
 			},
 			{
-				"name": "Web1",
+				"name": "Success",
 				"type": "WebActivity",
 				"dependsOn": [
 					{
-						"activity": "Lookup1",
+						"activity": "Update",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -52,6 +59,60 @@
 					"body": {
 						"value": "{\n  \"Message_Subject\": \"@{pipeline().Pipeline}-got success\",\n  \"To\": \"@{pipeline().parameters.To}\",\n  \"CC\": \"@{pipeline().parameters.CC}\",\n  \"Message_Body\": \"@{concat('Hi Team,Please find below pipeline status information.<br/><br/>',\n                             'Data Factory Name: ', pipeline().DataFactory, '<br/>',\n                             'Pipeline Name: ', pipeline().Pipeline,'<br/>',\n                             'Pipeline Runid: ',pipeline().RunId,'<br/>',\n                             'Status: Success'\n                            )}\"\n}\n",
 						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Failure",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "Update",
+						"dependencyConditions": [
+							"Failed",
+							"Skipped"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "POST",
+					"url": "https://prod-22.centralindia.logic.azure.com:443/workflows/1e14c537a14e43dc844c0c60275a725a/triggers/When_a_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_a_HTTP_request_is_received%2Frun&sv=1.0&sig=kNhedVfyg4tXzTcKbXDGj6FSQnVo4unsrSaYHi4FxvQ",
+					"body": {
+						"value": "{\n  \"Message_Subject\": \"@{pipeline().Pipeline}\",\n  \"To\": \"@{pipeline().parameters.To}\",\n  \"CC\": \"@{pipeline().parameters.CC}\",\n  \"Message_Body\": \"@{concat('Hi Team, Please look into below error information and fix it.,<br/><br/>',\n                             'Data Factory Name: ', pipeline().DataFactory, '<br/>',\n                             'Pipeline Name: ', pipeline().Pipeline, '<br/>',\n                             'Error Message: ', activity('Update')?.error?.message,activity('Insert')?.error?.message\n                            )}\"\n}\n",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Insert",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "Insert into dbo.Employee\r\nvalues('Lakshman','108',10000,6)",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference"
 					}
 				}
 			}
