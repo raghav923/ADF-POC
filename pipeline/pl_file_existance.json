@@ -53,7 +53,7 @@
 					"isSequential": false,
 					"activities": [
 						{
-							"name": "If Condition1",
+							"name": "Check Date Condition",
 							"type": "IfCondition",
 							"dependsOn": [],
 							"userProperties": [],
